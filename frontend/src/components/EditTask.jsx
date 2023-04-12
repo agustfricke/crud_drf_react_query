@@ -2,6 +2,8 @@ import { useMutation, useQueryClient, useQuery } from "react-query"
 import { useParams, useNavigate } from "react-router-dom"
 import { getSoloTask, editTask } from "../api/tasks"
 import { Formik, Field, Form } from 'formik';
+import { AiFillEdit } from "react-icons/ai";
+import toast from 'react-hot-toast';
 
 const EditTask = () => {
 
@@ -10,21 +12,22 @@ const EditTask = () => {
   const { id } = useParams()
   const navigate = useNavigate()
 
-  const { data: task, 
-    isLoading, 
+  const { data: task,
+    isLoading,
     isError,
-    error } = useQuery({ 
-    queryKey: ['tasks', id],
-    queryFn: () => getSoloTask(id)
-  })
+    error } = useQuery({
+      queryKey: ['tasks', id],
+      queryFn: () => getSoloTask(id)
+    })
 
   const editTaskMutation = useMutation({
     mutationFn: editTask,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['tasks']})
+      queryClient.invalidateQueries({ queryKey: ['tasks'] })
+      toast.success('Task edited!')
     },
     onError: (error) => {
-      alert(error.message)
+      toast.error(error)
     }
   })
 
@@ -35,28 +38,28 @@ const EditTask = () => {
   if (isError) return <div> Error: {error.message} </div>
 
   return (
-    <div>
-      <h1>{task.title}</h1>
+    <div className="mt-11">
+      <h1 className="text-slate-200 text-center text-xl font-bold">Edit Task</h1>
       <Formik
         initialValues={{
           title: task.title,
           completed: task.completed,
         }}
         onSubmit={(values) => {
-          editTaskMutation.mutate({ ...task, ...values})
+          editTaskMutation.mutate({ ...task, ...values })
           navigate('/')
         }}
       >
-        <Form>
-          <label htmlFor="title">Title</label>
-          <Field id="title" name="title" placeholder="title" />
-
-          <label>
-            <Field type="checkbox" name="completed" id='completed' />
-          </label>
+        <Form className='flex justify-center'>
 
 
-          <button type="submit">Submit</button>
+
+          <Field className='rounded-lg p-1.5 m-5 outline-none' id="title" name="title" placeholder="Title" />
+
+          <Field type="checkbox" name="completed" id="completed" className="w-5" />
+
+          <button type="submit" className='text-slate-200 hover:text-white ml-5'><AiFillEdit size={30} /></button>
+
         </Form>
       </Formik>
     </div>

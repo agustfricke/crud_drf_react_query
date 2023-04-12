@@ -1,6 +1,10 @@
 import { useQuery, useQueryClient, useMutation } from "react-query"
-import { getTasks, deleteTask } from "../api/tasks"
+import { getTasks, deleteTask, editTask } from "../api/tasks"
 import { Link } from "react-router-dom"
+import { AiFillDelete, AiFillEdit, AiFillEye } from "react-icons/ai";
+import toast from 'react-hot-toast';
+import { ImCheckboxUnchecked, ImCheckboxChecked } from "react-icons/im";
+import Loader from "./Loader";
 
 const Tasks = () => {
 
@@ -9,42 +13,54 @@ const Tasks = () => {
   const deleteTaskMutation = useMutation({
     mutationFn: deleteTask,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['tasks']})
-      alert('Task deleted')
+      queryClient.invalidateQueries({ queryKey: ['tasks'] })
+      toast.success('Task deleted!');
     },
     onError: (error) => {
-      alert(error.message)
+      toast.error(error)
     }
   })
 
-  const { data: tasks, 
-          isLoading, 
-          isError,
-          error } = useQuery({ 
-                    queryKey: ['tasks'],
-                    queryFn: getTasks,
-                    select: data => data.sort((a, b) => b.id - a.id)
-                    })
+  const editTaskMutation = useMutation({
+    mutationFn: editTask,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['tasks'] })
+    }
+  })
 
-  if (isLoading) return <div>Loading...</div>
-  if (isError) return <div> Error: {error.message} </div>
+  const { data: tasks,
+    isLoading,
+    isError,
+    error } = useQuery({
+      queryKey: ['tasks'],
+      queryFn: getTasks,
+      select: data => data.sort((a, b) => b.id - a.id)
+    })
+
+  if (isLoading) return <Loader />
+  if (isError) return toast.error(error.message)
 
   return (
 
-    <div>
-      <Link to={'/add'}> Add task </Link>
-      <ul>
-        {tasks.map(task => (
-          <li key={task.id}>
-            {task.title}
-            <Link to={`/edit/${task.id}`}>Edit</Link>
-            <Link to={`${task.id}`}>Solo Task</Link>
-            {task.completed ? 'Completed' : 'Not completed'}
-            <button onClick={() => deleteTaskMutation.mutate(task.id)}>Delete Task</button>
-          </li>
-        ))}
-      </ul>
-    </div>
+
+    <>
+      {tasks.map(task => (
+        <div className="bg-sky-950 p-4 m-4  rounded-md" key={task.id}>
+          <header className="flex justify-between" >
+            <p className="m-2 text-slate-200 ">{task.title}</p>
+            <p className="text-slate-200 cursor-pointer" onClick={() => editTaskMutation.mutate({ ...task, completed: !task.completed })}>
+              {task.completed ? <ImCheckboxChecked size={20} /> : <ImCheckboxUnchecked size={20} />}
+            </p>
+          </header>
+
+          <div className="flex justify-center">
+            <Link className="text-slate-200 hover:text-white transition-colors m-3" to={`${task.id}`}><AiFillEye size={30} /></Link>
+            <Link className="text-cyan-700 hover:text-cyan-200 transition-colors m-3" to={`/edit/${task.id}`}><AiFillEdit size={30} /></Link>
+            <button className="text-red-700 hover:text-red-200 transition-colors mb-4 m-3" type='button' onClick={() => deleteTaskMutation.mutate(task.id)}><AiFillDelete size={30} /></button>
+          </div>
+        </div>
+      ))}
+    </>
 
   )
 }
