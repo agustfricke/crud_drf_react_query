@@ -1,4 +1,4 @@
-# CRUD-Django Rest Framework & React Query 
+# CRUD Django Rest Framework & React Query & Tailwind 
 
 ⚡  Simple CRUD app with React Query and Django Rest Framework, includes a neat interface using Tailwind css and alerts messages using the library React Hot Toast
 
