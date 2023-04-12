@@ -22,7 +22,8 @@ const Tasks = () => {
           isError,
           error } = useQuery({ 
                     queryKey: ['tasks'],
-                    queryFn: getTasks
+                    queryFn: getTasks,
+                    select: data => data.sort((a, b) => b.id - a.id)
                     })
 
   if (isLoading) return <div>Loading...</div>

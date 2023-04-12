@@ -2,6 +2,7 @@ import { useState } from "react"
 import { useMutation, useQueryClient } from "react-query"
 import { addTask } from "../api/tasks"
 import { useNavigate } from "react-router-dom"
+import { Formik, Field, Form } from 'formik';
 
 const AddTask = () => {
 
@@ -21,20 +22,30 @@ const AddTask = () => {
     }
   })
 
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    addTaskMutation.mutate({ title, completed: false})
-    setTitle('')
-    navigate('/')
-  }
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input type="text" value={title} onChange={(e) => setTitle(e.target.value)}/>
-      <button>
-        Add Task
-      </button>
-    </form>
+      <Formik
+        initialValues={{
+        title: "",
+          completed: false
+        }}
+        onSubmit={(values) => {
+          addTaskMutation.mutate({ ...values})
+          navigate('/')
+        }}
+      >
+        <Form>
+          <label htmlFor="title">Title</label>
+          <Field id="title" name="title" placeholder="title" />
+
+          <label>
+            <Field type="checkbox" name="completed" id='completed' />
+          </label>
+
+
+          <button type="submit">Submit</button>
+        </Form>
+      </Formik>
   )
 }
 
