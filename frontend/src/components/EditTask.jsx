@@ -7,6 +7,7 @@ import toast from 'react-hot-toast';
 
 const EditTask = () => {
 
+  // Para invalidar el cache
   const queryClient = useQueryClient()
 
   const { id } = useParams()

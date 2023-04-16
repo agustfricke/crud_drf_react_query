@@ -12,7 +12,7 @@ const SoloTask = () => {
           isLoading, 
           isError,
           error } = useQuery({ 
-                    queryKey: ['tasks', id],
+                    queryKey: ['task', id],
                     queryFn: () => getSoloTask(id)
                     })
 
