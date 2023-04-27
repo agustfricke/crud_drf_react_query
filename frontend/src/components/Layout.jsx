@@ -1,4 +1,4 @@
-import { Outlet, Link } from "react-router-dom";
+import { Outlet, Link } from "react-router-dom"
 import { AiFillHome, AiFillPlusSquare } from "react-icons/ai";
 import { Toaster } from 'react-hot-toast';
 
@@ -20,6 +20,6 @@ const Layout = () => {
     </div>
     </>
   )
-};
+}
 
-export default Layout;
+export default Layout

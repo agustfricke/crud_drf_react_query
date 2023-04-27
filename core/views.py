@@ -1,7 +1,9 @@
 from rest_framework import viewsets
-from . models import Task
 from . serializers import TaskSerializer
+from . models import Task
 
 class TaskViewSet(viewsets.ModelViewSet):
-    serializer_class = TaskSerializer
     queryset = Task.objects.all()
+    serializer_class = TaskSerializer
+
+

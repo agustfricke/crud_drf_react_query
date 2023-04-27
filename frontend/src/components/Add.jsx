@@ -1,24 +1,22 @@
-import { useMutation, useQueryClient } from "react-query"
+import { useMutation } from "react-query"
 import { addTask } from "../api/tasks"
 import { useNavigate } from "react-router-dom"
 import { Formik, Field, Form } from 'formik';
 import { AiFillPlusSquare } from "react-icons/ai";
 import toast from 'react-hot-toast';
 
-const AddTask = () => {
+const Add = () => {
 
   const navigate = useNavigate()
-
-  const queryClient = useQueryClient()
 
   const addTaskMutation = useMutation({
     mutationFn: addTask,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['tasks'] })
-      toast.success('Task added!')
-    },
+      toast.success('Task added successfully')
+      navigate('/')
+    }, 
     onError: (error) => {
-     Tasks.error(error)
+      toast.error(error.message)
     }
   })
 
@@ -33,8 +31,7 @@ const AddTask = () => {
       }}
 
       onSubmit={(values) => {
-        addTaskMutation.mutate({ ...values })
-        navigate('/')
+        addTaskMutation.mutate(values)
       }}
 
     >
@@ -52,4 +49,4 @@ const AddTask = () => {
   )
 }
 
-export default AddTask
+export default Add

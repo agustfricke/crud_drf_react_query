@@ -5,23 +5,25 @@ const api = axios.create({
 })
 
 export const getTasks = async () => {
-  const res = await api.get('/tasks/')
-  return res.data
+  const response = await api.get("/tasks/")
+  return response.data
+}
+
+export const addTask = async (data) => {
+  await api.post("/tasks/", data)
 }
 
 export const getSoloTask = async (id) => {
-  const res = await api.get(`/tasks/${id}`)
-  return res.data
+  const response = await api.get(`/tasks/${id}/`)
+  return response.data
 }
 
-export const addTask = async (task) => {
-  return await api.post('/tasks/', task)
-}
-
-export const editTask = async (task) => {
-  return await api.put(`/tasks/${task.id}/`, task)
+export const editTask = async (data) => {
+  await api.put(`/tasks/${data.id}/`, data)
 }
 
 export const deleteTask = async (id) => {
-  return await api.delete(`/tasks/${id}`)
+  await api.delete(`/tasks/${id}/`)
 }
+
+
