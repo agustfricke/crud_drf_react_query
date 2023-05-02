@@ -16,6 +16,7 @@
 - npm run dev
 
 ## Give it a star ⭐
+### YouTube video :tv: https://www.youtube.com/watch?v=UowXvJQ3gXo&t=3155s
 
 ![Screenshot 2023-04-11 23-18-47](https://user-images.githubusercontent.com/110266171/231331107-105e2ed9-fad6-4688-8448-6ad26ab43956.png)
 ![Screenshot 2023-04-11 23-17-57](https://user-images.githubusercontent.com/110266171/231331137-c198a92b-a718-4685-ab86-1ad2884f8a1a.png)
