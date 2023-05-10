@@ -5,13 +5,13 @@
 ### install and use:
 #### BACKEND
 - git clone https://github.com/agustfricke/crud_drf_react_query.git
-- cd CRUD-DRF-Redux-Toolkit
+- cd crud_drf_react_query
 - Linux and Mac: python3 -m venv env
 - Linux and Mac: source env/bin/activate
 - pip install -r requirements.txt
 - python3 manage.py runserver
 #### FRONTEND
-- cd CRUD-DRF-Redux-Toolkit/frontend
+- cd crud_drf_react_query/frontend
 - npm i
 - npm run dev
 
