@@ -3,17 +3,33 @@
 ⚡  Simple CRUD app with React Query and Django Rest Framework, includes a neat interface using Tailwind css and alerts messages using the library React Hot Toast
 
 ### install and use:
-#### BACKEND
-- git clone https://github.com/agustfricke/crud_drf_react_query.git
-- cd crud_drf_react_query
-- Linux and Mac: python3 -m venv env
-- Linux and Mac: source env/bin/activate
-- pip install -r requirements.txt
-- python3 manage.py runserver
-#### FRONTEND
-- cd crud_drf_react_query/frontend
-- npm i
-- npm run dev
+```bash
+git clone https://github.com/agustfricke/crud_drf_react_query.git
+cd crud_drf_react_query
+python3 -m venv env
+```
+
+#### linux and macos
+```bash
+source env/bin/activate
+```
+
+#### windows
+```bash
+venv\Scripts\activate.bat
+```
+
+```bash
+pip install -r requirements.txt
+python3 manage.py runserver
+```
+
+#### in a new terminal
+```bash
+cd crud_drf_react_query/frontend
+npm i
+npm run dev
+```
 
 ## Give it a star ⭐
 ### YouTube video :tv: https://www.youtube.com/watch?v=UowXvJQ3gXo&t=3155s
