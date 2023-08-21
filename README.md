@@ -9,15 +9,19 @@ cd crud_drf_react_query
 python3 -m venv env
 ```
 
-#### linux and macos
+-------------------------------
+
+- activate env in macos
 ```bash
 source env/bin/activate
 ```
 
-#### windows
+- activate env in windows
 ```bash
 venv\Scripts\activate.bat
 ```
+
+-------------------------------
 
 ```bash
 pip install -r requirements.txt
